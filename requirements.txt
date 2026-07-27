@@ -1,0 +1,9 @@
+requests
+beautifulsoup4
+lxml
+pandas
+sqlalchemy
+pymysql
+python-dotenv
+apscheduler
+ipykernel
