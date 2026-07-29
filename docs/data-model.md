@@ -3,6 +3,35 @@
 ## Purpose
 Define the normalized structure used for every apartment, regardless of source.
 
+## Phase 1 Implementation Scope
+
+The first Python model will implement the following subset of fields from the complete canonical model defined below.
+
+### Required Fields
+
+- source
+- source_listing_id
+- listing_url
+- raw_title
+- extraction_timestamp
+
+### Optional Fields
+
+- raw_description
+- monthly_rent
+- currency
+- city
+- neighborhood
+- street
+- rooms
+- area_sqm
+- floor
+- available_from
+- owner_or_broker
+- publication_date
+
+Fields not included in Phase 1 remain part of the planned canonical model and will be added incrementally.
+
 ## Core Listing Fields
 
 ### Identity
