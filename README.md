@@ -5,7 +5,8 @@ An autonomous apartment-search platform under development, designed to collect, 
 The project combines software engineering, data engineering, web data acquisition, analytics, automation, and DevOps practices into a single end-to-end system.
 
 > **Status:** Foundation and architecture phase.
-> The repository structure, development environment, documentation, and core dependencies are established. Crawlers, database integration, scoring, dashboard, containers, and CI/CD are planned development stages.
+> The repository targets Python 3.12. The canonical Phase 1 `ApartmentListing` model is implemented in `src/domain/listing.py`, 9 unit tests currently pass, and Ruff plus GitHub Actions CI are configured.
+> Database persistence, crawlers, scoring, UI, containers, and deployment are not yet implemented.
 
 ---
 
@@ -66,9 +67,9 @@ The system is designed so that data acquisition, processing, storage, analysis, 
 
 ---
 
-## Current Technology Stack
+## Configured Technology Stack
 
-Technologies already configured in the development environment:
+These dependencies and tools are configured for the project or its development environment. They do not all represent implemented application capabilities yet.
 
 ### Core
 
@@ -78,10 +79,12 @@ Technologies already configured in the development environment:
 - BeautifulSoup
 - lxml
 
-### Data & Persistence
+### Data & Persistence Dependencies
 
 - SQLAlchemy
 - PyMySQL
+
+These packages are available for future persistence work, but repository database persistence is not implemented yet.
 
 ### Automation
 
@@ -92,6 +95,8 @@ Technologies already configured in the development environment:
 
 - Jupyter
 - IPython kernel
+- pytest
+- Ruff
 - VS Code
 - WSL
 
@@ -100,20 +105,18 @@ Technologies already configured in the development environment:
 - Git
 - GitHub
 - GitHub CLI
+- GitHub Actions CI
 
 ---
 
 ## Planned Engineering Stack
 
-The following technologies are part of the intended architecture but are **not yet implemented**:
+The following technologies and capabilities are part of the intended architecture but are **not yet implemented**:
 
-- MySQL
+- MySQL database integration and provisioning
 - Streamlit
 - Docker
 - Docker Compose
-- GitHub Actions
-- automated testing
-- CI/CD pipelines
 - deployment automation
 - structured application logging
 - health checks
@@ -130,24 +133,38 @@ They will be introduced incrementally as the corresponding components are implem
 .
 ├── AGENTS.md
 ├── README.md
+├── pyproject.toml
 ├── requirements.txt
+├── requirements-dev.txt
 ├── main.py
+│
+├── .github/
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── ci.yml
 │
 ├── docs/
 │   ├── architecture.md
+│   ├── current-state.md
 │   ├── data-model.md
+│   ├── development-workflow.md
+│   ├── decisions/
+│   │   └── ADR-0001-codex-contribution-workflow.md
 │   └── search-criteria.md
 │
 ├── notebooks/
 │   └── 00_environment_check.ipynb
 │
-└── src/
-    ├── analysis/
-    ├── crawlers/
-    ├── database/
-    ├── deduplication/
-    ├── processing/
-    └── scheduler/
+├── src/
+│   ├── analysis/
+│   ├── crawlers/
+│   ├── database/
+│   ├── deduplication/
+│   ├── domain/
+│   ├── processing/
+│   └── scheduler/
+└── tests/
+    └── test_listing.py
 ```
 
 ### Directory Responsibilities
@@ -176,6 +193,12 @@ Exploratory development, crawler experiments, data inspection, analysis, and vis
 `docs/`
 Detailed system specifications that do not belong in the main README.
 
+`.github/`
+GitHub Actions workflow and pull request template.
+
+`tests/`
+Automated tests for implemented Python modules.
+
 ---
 
 ## Data Engineering Principles
@@ -198,6 +221,12 @@ Detailed rules are defined in [`docs/data-model.md`](docs/data-model.md).
 
 ---
 
+## Current Implemented Model
+
+`ApartmentListing` is the current canonical Phase 1 domain model. It is implemented in `src/domain/listing.py`, its rules are documented in [`docs/data-model.md`](docs/data-model.md), and its current behavior is covered by 9 unit tests in `tests/test_listing.py`.
+
+---
+
 ## Development Workflow
 
 Production code belongs in Python modules under `src/`.
@@ -215,11 +244,13 @@ Jupyter notebooks are used for:
 
 Working logic that becomes part of the platform will be moved from notebooks into reusable Python modules.
 
-Git development will use feature branches as implementation work begins.
+Development work is linked to an approved GitHub Issue, implemented on a dedicated non-`main` branch, and merged to `main` through reviewed pull requests. Detailed agent instructions are in [`AGENTS.md`](AGENTS.md), and the contribution procedure is in [`docs/development-workflow.md`](docs/development-workflow.md).
 
 ---
 
 ## Getting Started
+
+Python 3.12 is required.
 
 ### 1. Clone the repository
 
@@ -231,15 +262,25 @@ cd apartment-search-ai-agent
 ### 2. Create an isolated Python environment
 
 ```bash
-python3 -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
 ### 3. Install dependencies
 
+Runtime dependencies only:
+
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
+
+Development dependencies:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+`requirements-dev.txt` includes `requirements.txt`, so development setup only needs the development install command.
 
 ### 4. Optional: register the Jupyter environment
 
@@ -250,7 +291,20 @@ python -m ipykernel install \
   --display-name "Python (apartment-search-ai-agent)"
 ```
 
-The application itself is not yet runnable as a complete service. Runtime instructions will be added when the first executable pipeline is implemented.
+### 5. Local validation
+
+Run these commands from the activated project `.venv`:
+
+```bash
+ruff check .
+python -m pytest -q
+python -m compileall -q main.py src
+git diff --check
+```
+
+Local validation does not replace GitHub Actions CI.
+
+Tests and validation commands are executable. No complete end-to-end apartment-search service or pipeline exists yet. Runtime instructions will be added when an executable application pipeline is implemented.
 
 ---
 
@@ -261,6 +315,9 @@ Project specifications are maintained separately from the README:
 - [`docs/search-criteria.md`](docs/search-criteria.md) — apartment-search requirements and filtering criteria
 - [`docs/data-model.md`](docs/data-model.md) — canonical listing structure and data-quality rules
 - [`docs/architecture.md`](docs/architecture.md) — system and DevOps architecture
+- [`docs/current-state.md`](docs/current-state.md) — current repository capabilities and known development context
+- [`docs/development-workflow.md`](docs/development-workflow.md) — Codex contribution workflow
+- [`docs/decisions/`](docs/decisions/) — architecture decision records
 - [`AGENTS.md`](AGENTS.md) — repository-level instructions for coding agents
 
 ---
@@ -276,10 +333,13 @@ Project specifications are maintained separately from the README:
 - [x] Git repository
 - [x] public GitHub repository
 - [x] core data-processing dependencies
+- [x] canonical Python data model
+- [x] automated unit tests
+- [x] Ruff linting
+- [x] GitHub Actions CI
 
 ### Phase 2 — Data Pipeline
 
-- [ ] canonical Python data models
 - [ ] first listing-source crawler
 - [ ] raw data persistence
 - [ ] normalization pipeline
@@ -313,8 +373,8 @@ Project specifications are maintained separately from the README:
 
 ### Phase 6 — DevOps
 
-- [ ] automated tests
-- [ ] GitHub Actions CI
+- [x] automated tests
+- [x] GitHub Actions CI
 - [ ] Dockerfile
 - [ ] Docker Compose
 - [ ] containerized database and services
@@ -344,6 +404,8 @@ The implementation will not be designed to bypass:
 - paywalls
 - security mechanisms
 - explicit access restrictions
+
+Future crawlers must respect reasonable request rates, source restrictions, and robots policies.
 
 Credentials and secrets must remain outside source control.
 
