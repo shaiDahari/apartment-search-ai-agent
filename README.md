@@ -5,7 +5,7 @@ An autonomous apartment-search platform under development, designed to collect, 
 The project combines software engineering, data engineering, web data acquisition, analytics, automation, and DevOps practices into a single end-to-end system.
 
 > **Status:** Foundation and architecture phase.
-> The repository targets Python 3.12. The canonical Phase 1 `ApartmentListing` model is implemented in `src/domain/listing.py`, 9 unit tests currently pass, and Ruff plus GitHub Actions CI are configured.
+> The repository targets Python 3.12. The canonical Phase 1 `ApartmentListing` model is implemented in `src/domain/listing.py`, 10 unit tests currently pass, and Ruff plus GitHub Actions CI are configured.
 > Database persistence, crawlers, scoring, UI, containers, and deployment are not yet implemented.
 
 ---
@@ -148,6 +148,7 @@ They will be introduced incrementally as the corresponding components are implem
 │   ├── current-state.md
 │   ├── data-model.md
 │   ├── development-workflow.md
+│   ├── persistence-design.md
 │   ├── decisions/
 │   │   └── ADR-0001-codex-contribution-workflow.md
 │   └── search-criteria.md
@@ -223,7 +224,9 @@ Detailed rules are defined in [`docs/data-model.md`](docs/data-model.md).
 
 ## Current Implemented Model
 
-`ApartmentListing` is the current canonical Phase 1 domain model. It is implemented in `src/domain/listing.py`, its rules are documented in [`docs/data-model.md`](docs/data-model.md), and its current behavior is covered by 9 unit tests in `tests/test_listing.py`.
+`ApartmentListing` is the current canonical Phase 1 domain model. It is implemented in `src/domain/listing.py`, its rules are documented in [`docs/data-model.md`](docs/data-model.md), and its current behavior is covered by 10 unit tests in `tests/test_listing.py`.
+
+The Phase 1 apartment-listing persistence design is documented in [`docs/persistence-design.md`](docs/persistence-design.md).
 
 ---
 
@@ -314,6 +317,7 @@ Project specifications are maintained separately from the README:
 
 - [`docs/search-criteria.md`](docs/search-criteria.md) — apartment-search requirements and filtering criteria
 - [`docs/data-model.md`](docs/data-model.md) — canonical listing structure and data-quality rules
+- [`docs/persistence-design.md`](docs/persistence-design.md) — Phase 1 apartment-listing persistence design
 - [`docs/architecture.md`](docs/architecture.md) — system and DevOps architecture
 - [`docs/current-state.md`](docs/current-state.md) — current repository capabilities and known development context
 - [`docs/development-workflow.md`](docs/development-workflow.md) — Codex contribution workflow

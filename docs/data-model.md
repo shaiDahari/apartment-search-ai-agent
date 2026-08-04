@@ -3,9 +3,10 @@
 ## Purpose
 Define the normalized structure used for every apartment, regardless of source.
 
-## Phase 1 Implementation Scope
+## Phase 1 Domain Implementation Scope
 
-The first Python model will implement the following subset of fields from the complete canonical model defined below.
+The current Python `ApartmentListing` model implements the following subset
+of fields from the complete canonical model defined below.
 
 ### Required Fields
 
@@ -15,7 +16,7 @@ The first Python model will implement the following subset of fields from the co
 - raw_title
 - extraction_timestamp
 
-### Optional Fields
+### Optional Nullable Fields
 
 - raw_description
 - monthly_rent
@@ -27,10 +28,31 @@ The first Python model will implement the following subset of fields from the co
 - area_sqm
 - floor
 - available_from
-- publisher_type
 - publication_date
 
-Fields not included in Phase 1 remain part of the planned canonical model and will be added incrementally.
+### Explicit Unknown-Default Fields
+
+- publisher_type
+
+`publisher_type` uses the canonical values `owner`, `broker`, and `unknown`.
+Missing publisher information is represented as `unknown`, not NULL.
+
+Fields not included in the current Python model remain part of the planned
+canonical model and will be added incrementally when approved.
+
+## Phase 1 Persistence Design
+
+Phase 1 persistence is documented in
+[`docs/persistence-design.md`](persistence-design.md).
+
+The persistence design uses exactly one entity, `apartment_listings`, with
+`listing_id` as the internal persistence primary key and
+`(source, source_listing_id)` as the unique external listing identity.
+
+It also documents Owner-approved persistence fields that are not yet
+implemented in the Python `ApartmentListing` domain model, including recurring
+apartment costs, included-in-rent status fields, broker-fee fields, and
+`protected_space_type`.
 
 ## Core Listing Fields
 
@@ -60,13 +82,16 @@ Fields not included in Phase 1 remain part of the planned canonical model and wi
 ### Price
 - monthly_rent
 - currency
-- arnona
-- arnona_period
+- arnona_amount
+- arnona_period_months
 - vaad_bayit
-- management_fee
+- arnona_included_in_rent
+- vaad_bayit_included_in_rent
+- internet_included_in_rent
+- cable_tv_included_in_rent
 - parking_fee
-- broker_fee
-- other_mandatory_fees
+- broker_fee_amount
+- broker_fee_terms
 - estimated_utilities
 - estimated_total_monthly_cost
 - deposit
@@ -85,8 +110,7 @@ Fields not included in Phase 1 remain part of the planned canonical model and wi
 - parking_type
 - balcony
 - balcony_area_sqm
-- mamad
-- shelter
+- protected_space_type
 - storage
 - furnished
 - furniture_details

@@ -46,17 +46,32 @@ Responsibilities:
 - create one canonical property record
 - preserve all source listings
 
+Canonical-property records and cross-source duplicate persistence are future
+architecture goals. They are not part of Phase 1 apartment-listing
+persistence.
+
 ### 4. Database
 Target:
 MySQL
 
-Responsibilities:
+Phase 1 responsibility:
+- store the latest known state of each external listing in the single
+  `apartment_listings` entity documented in
+  [`docs/persistence-design.md`](persistence-design.md)
+- enforce `listing_id` as internal persistence identity
+- enforce `(source, source_listing_id)` as the unique external listing
+  identity
+
+Future responsibilities:
 - listings
 - canonical properties
 - price history
 - change history
 - crawl history
 - source status
+
+Phase 1 does not implement database tables, ORM models, persistence code, or
+history storage.
 
 ### 5. Analysis & Scoring
 Location:
