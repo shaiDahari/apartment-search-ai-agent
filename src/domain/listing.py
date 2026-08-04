@@ -84,9 +84,9 @@ class ApartmentListing(BaseModel):
         available_from:
             Date from which the apartment is available for occupancy.
 
-        owner_or_broker:
-            Indicates whether the listing was published by the property owner
-            or by a real-estate broker.
+        publisher_type:
+            Indicates whether the listing was published by the property owner,
+            by a real-estate broker, or the publisher type is unknown.
 
         publication_date:
             Date and time when the original source published the listing.
@@ -202,9 +202,9 @@ class ApartmentListing(BaseModel):
         description="Date from which the apartment is available.",
     )
 
-    owner_or_broker: Literal["owner", "broker"] | None = Field(
-        default=None,
-        description="Whether the listing was published by an owner or broker.",
+    publisher_type: Literal["owner", "broker", "unknown"] = Field(
+        default="unknown",
+        description="Whether the listing was published by an owner, broker, or is unknown.",
     )
 
     publication_date: datetime | None = Field(

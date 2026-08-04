@@ -30,6 +30,7 @@ def test_accepts_required_fields_only() -> None:
     assert listing.source == "example"
     assert listing.source_listing_id == "listing-123"
     assert listing.monthly_rent is None
+    assert listing.publisher_type == "unknown"
 
 def test_rejects_missing_required_source() -> None:
     """Verify that a listing without a source is rejected."""
@@ -201,7 +202,7 @@ def test_accepts_complete_valid_listing() -> None:
         area_sqm=Decimal("82.5"),
         floor=2,
         available_from=date(2026, 8, 15),
-        owner_or_broker="owner",
+        publisher_type="owner",
         publication_date=datetime(
             2026,
             7,
@@ -216,4 +217,20 @@ def test_accepts_complete_valid_listing() -> None:
     assert listing.rooms == Decimal("3.5")
     assert listing.area_sqm == Decimal("82.5")
     assert listing.available_from == date(2026, 8, 15)
-    assert listing.owner_or_broker == "owner"
+    assert listing.publisher_type == "owner"
+
+def test_accepts_broker_publisher_type() -> None:
+    """Verify that broker is accepted as a publisher type."""
+
+    listing = ApartmentListing(
+        source="example",
+        source_listing_id="listing-123",
+        listing_url="https://example.com/listings/123",
+        raw_title="Apartment listing",
+        extraction_timestamp=datetime(
+            2026, 7, 29, 9, 30, tzinfo=UTC
+        ),
+        publisher_type="broker",
+    )
+
+    assert listing.publisher_type == "broker"

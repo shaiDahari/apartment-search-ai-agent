@@ -27,7 +27,7 @@ The first Python model will implement the following subset of fields from the co
 - area_sqm
 - floor
 - available_from
-- owner_or_broker
+- publisher_type
 - publication_date
 
 Fields not included in Phase 1 remain part of the planned canonical model and will be added incrementally.
@@ -106,7 +106,7 @@ Fields not included in Phase 1 remain part of the planned canonical model and wi
 - long_term_possible
 - pets_allowed
 - smokers_policy
-- owner_or_broker
+- publisher_type
 
 ### Listing Metadata
 - raw_title
