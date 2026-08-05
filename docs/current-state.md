@@ -31,7 +31,7 @@ Implemented behavior includes:
 
 ## Tests And CI
 
-- 9 unit tests are passing for the current domain model.
+- 10 unit tests are passing for the current listing model.
 - Ruff linting is configured.
 - GitHub Actions CI runs Ruff, pytest, and Python syntax validation on pushes
   and pull requests targeting `main`.
@@ -48,21 +48,23 @@ Implemented behavior includes:
 
 ## Current Persistence Milestone
 
-The current persistence milestone is preparing the repository for database
-persistence work. MySQL is available locally, but application persistence code
-is not yet implemented in this repository. The repository does not currently
-provision, initialize, or verify the local MySQL server.
+The current persistence milestone is designing Phase 1 apartment-listing
+persistence before implementation. MySQL is available locally, but application
+persistence code is not yet implemented in this repository. The repository
+does not currently provision, initialize, or verify the local MySQL server.
 
 ## Active Issue
 
-- Current assigned work: Issue #11, Establish Codex contribution workflow.
+- Current assigned work: Issue #4, Design apartment listing database
+  persistence.
 - GitHub Issues and GitHub Projects are authoritative. Future Codex sessions
   must verify the current assignment from GitHub rather than treating this file
   as task authorization.
 
 ## Next Approved Checkpoint
 
-After Issue #11 is completed and reviewed, persistence is the currently planned
-next checkpoint. This is management context, not a Codex assignment. Codex must
-wait for a separately approved GitHub Issue before starting that work. GitHub
-Projects supersede this statement if planning changes.
+After Issue #4 is completed and reviewed, implementation of the approved
+persistence design is the currently planned next checkpoint. This is
+management context, not a Codex assignment. Codex must wait for a separately
+approved GitHub Issue before starting that work. GitHub Projects supersede
+this statement if planning changes.
