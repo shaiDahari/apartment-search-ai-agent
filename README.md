@@ -132,6 +132,7 @@ They will be introduced incrementally as the corresponding components are implem
 ```text
 .
 ├── AGENTS.md
+├── .env.example
 ├── README.md
 ├── pyproject.toml
 ├── requirements.txt
@@ -146,6 +147,7 @@ They will be introduced incrementally as the corresponding components are implem
 ├── docs/
 │   ├── architecture.md
 │   ├── current-state.md
+│   ├── database-setup.md
 │   ├── data-model.md
 │   ├── development-workflow.md
 │   ├── persistence-design.md
@@ -318,6 +320,7 @@ Project specifications are maintained separately from the README:
 - [`docs/search-criteria.md`](docs/search-criteria.md) — apartment-search requirements and filtering criteria
 - [`docs/data-model.md`](docs/data-model.md) — canonical listing structure and data-quality rules
 - [`docs/persistence-design.md`](docs/persistence-design.md) — Phase 1 apartment-listing persistence design
+- [`docs/database-setup.md`](docs/database-setup.md) — local MySQL schema and application-user setup
 - [`docs/architecture.md`](docs/architecture.md) — system and DevOps architecture
 - [`docs/current-state.md`](docs/current-state.md) — current repository capabilities and known development context
 - [`docs/development-workflow.md`](docs/development-workflow.md) — Codex contribution workflow
