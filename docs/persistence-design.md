@@ -22,6 +22,14 @@ records.
 
 ## Phase 1 ERD
 
+### Conceptual ERD Diagram
+
+![Phase 1 Apartment Listings ERD Diagram](diagrams/apartment-listings-erd-diagram.png)
+
+The conceptual ERD diagram provides a visual Chen-style representation of the Phase 1 entity and its attributes.
+
+### Mermaid Persistence ERD
+
 ```mermaid
 erDiagram
     apartment_listings {
