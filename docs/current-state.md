@@ -44,27 +44,31 @@ Implemented behavior includes:
 - Host: `127.0.0.1`.
 - Port: `3307`.
 - MySQL Workbench connection name: `Apartment Search`.
+- Project schema: `apartment_search_ai_agent`.
+- Application account: `'apartment_app'@'127.0.0.1'`.
+- Application account privileges: `SELECT`, `INSERT`, `UPDATE`, and `DELETE`
+  on `apartment_search_ai_agent.*`.
+- MySQL Workbench application connection name: `Apartment Search App`.
+- Application-user validation confirms `DATABASE()` returns
+  `apartment_search_ai_agent` and `CURRENT_USER()` returns
+  `apartment_app@127.0.0.1`.
+- Local `.env` exists on the user's machine and is ignored by `.gitignore`.
 - Database credentials must remain outside source control.
 
 ## Current Persistence Milestone
 
-The current persistence milestone is designing Phase 1 apartment-listing
-persistence before implementation. MySQL is available locally, but application
-persistence code is not yet implemented in this repository. The repository
-does not currently provision, initialize, or verify the local MySQL server.
+Phase 1 apartment-listing persistence design is documented in
+`docs/persistence-design.md`.
 
-## Active Issue
+Local MySQL schema and application-user setup instructions are documented in
+`docs/database-setup.md`. MySQL is configured locally for the user's current
+machine, but application persistence code is not yet implemented in this
+repository. The repository does not currently provision, initialize, or verify
+the local MySQL server, schema, user, privileges, or `.env` file.
 
-- Current assigned work: Issue #4, Design apartment listing database
-  persistence.
-- GitHub Issues and GitHub Projects are authoritative. Future Codex sessions
-  must verify the current assignment from GitHub rather than treating this file
-  as task authorization.
+## Planning Authority
 
-## Next Approved Checkpoint
-
-After Issue #4 is completed and reviewed, implementation of the approved
-persistence design is the currently planned next checkpoint. This is
-management context, not a Codex assignment. Codex must wait for a separately
-approved GitHub Issue before starting that work. GitHub Projects supersede
-this statement if planning changes.
+GitHub Issues and GitHub Projects are authoritative for active work,
+priorities, status, assignments, deadlines, and next checkpoints. This file
+records durable repository state and known development context; it is not task
+authorization.
