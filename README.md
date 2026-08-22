@@ -5,8 +5,8 @@ An autonomous apartment-search platform under development, designed to collect, 
 The project combines software engineering, data engineering, web data acquisition, analytics, automation, and DevOps practices into a single end-to-end system.
 
 > **Status:** Foundation and architecture phase.
-> The repository targets Python 3.12. The canonical Phase 1 `ApartmentListing` model is implemented in `src/domain/listing.py`, 10 unit tests currently pass, and Ruff plus GitHub Actions CI are configured.
-> Database persistence, crawlers, scoring, UI, containers, and deployment are not yet implemented.
+> The repository targets Python 3.12. The canonical Phase 1 `ApartmentListing` model is implemented in `src/domain/listing.py`, 18 unit tests currently pass, and Ruff plus GitHub Actions CI are configured.
+> Database connection configuration is implemented. Database persistence, tables, ORM models, crawlers, scoring, UI, containers, and deployment are not yet implemented.
 
 ---
 
@@ -84,7 +84,7 @@ These dependencies and tools are configured for the project or its development e
 - SQLAlchemy
 - PyMySQL
 
-These packages are available for future persistence work, but repository database persistence is not implemented yet.
+These packages support the implemented database connection configuration and future persistence work, but repository database persistence, tables, and ORM models are not implemented yet.
 
 ### Automation
 
@@ -113,7 +113,7 @@ These packages are available for future persistence work, but repository databas
 
 The following technologies and capabilities are part of the intended architecture but are **not yet implemented**:
 
-- MySQL database integration and provisioning
+- MySQL persistence tables and provisioning
 - Streamlit
 - Docker
 - Docker Compose
@@ -182,7 +182,7 @@ Normalization, validation, cleaning, and transformation.
 Cross-source duplicate detection and canonical property resolution.
 
 `src/database/`
-Database models, connections, persistence, and query logic.
+Database connection configuration, models, persistence, and query logic.
 
 `src/analysis/`
 Apartment scoring, pricing analysis, comparison, and opportunity detection.
@@ -229,6 +229,11 @@ Detailed rules are defined in [`docs/data-model.md`](docs/data-model.md).
 `ApartmentListing` is the current canonical Phase 1 domain model. It is implemented in `src/domain/listing.py`, its rules are documented in [`docs/data-model.md`](docs/data-model.md), and its current behavior is covered by 10 unit tests in `tests/test_listing.py`.
 
 The Phase 1 apartment-listing persistence design is documented in [`docs/persistence-design.md`](docs/persistence-design.md).
+
+Database connection configuration is implemented in `src/database/config.py`.
+It reads MySQL settings from environment variables and builds reusable
+SQLAlchemy engine and session-factory objects. Database persistence, tables,
+and ORM models are not implemented yet.
 
 ---
 

@@ -2,11 +2,10 @@
 
 ## Purpose
 
-Document the local MySQL schema and application user setup for this project.
-This setup supports future persistence work without adding Python database
-configuration, SQLAlchemy engine/session setup, ORM models, or schema files.
-
-Reusable SQLAlchemy configuration belongs to Issue #6.
+Document the local MySQL schema, application user setup, and Python database
+connection configuration for this project. This setup supports future
+persistence work without adding ORM models, schema files, migrations, or
+table-creation behavior.
 
 ## Approved Local Settings
 
@@ -36,6 +35,35 @@ MYSQL_PASSWORD=<real-local-password>
 
 Committed `.env.example` contains the same variable names with safe
 placeholder values only.
+
+## Python Application Configuration
+
+The Python application reads these environment variables and uses SQLAlchemy
+with the `mysql+pymysql` driver to build the database connection URL:
+
+- `MYSQL_HOST`
+- `MYSQL_PORT`
+- `MYSQL_DATABASE`
+- `MYSQL_USER`
+- `MYSQL_PASSWORD`
+
+Database configuration code lives in `src/database/config.py`.
+
+Use the explicit factory functions to create reusable SQLAlchemy objects:
+
+```python
+from src.database.config import create_database_engine, create_session_factory
+
+engine = create_database_engine()
+SessionLocal = create_session_factory(engine=engine)
+```
+
+The factories load local `.env` values for development, validate required
+configuration, and fail clearly when values are missing or invalid. Engine
+creation is lazy and does not create database tables by itself.
+
+Do not hard-code credentials in Python code. Do not print, log, or commit the
+real `MYSQL_PASSWORD`.
 
 ## Pre-Change Inspection
 

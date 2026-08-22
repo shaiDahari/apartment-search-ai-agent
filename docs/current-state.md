@@ -62,9 +62,11 @@ Phase 1 apartment-listing persistence design is documented in
 
 Local MySQL schema and application-user setup instructions are documented in
 `docs/database-setup.md`. MySQL is configured locally for the user's current
-machine, but application persistence code is not yet implemented in this
-repository. The repository does not currently provision, initialize, or verify
-the local MySQL server, schema, user, privileges, or `.env` file.
+machine. SQLAlchemy database connection configuration is implemented in
+`src/database/config.py`, but application persistence, database tables, and
+ORM models are not yet implemented in this repository. The repository does
+not currently provision, initialize, or verify the local MySQL server, schema,
+user, privileges, or `.env` file.
 
 ## Planning Authority
 
